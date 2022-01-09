@@ -52,7 +52,7 @@ canvas{
 
 </head>
 
-<body bgcolor=#303030>
+<body bgcolor=#202020>
 
 	<br><br><br>
 
@@ -132,7 +132,17 @@ canvas{
 
 	Carts</a></div>
 
-	<br>
+	<br><br><br><br>
+	<b>
+	<font color=#808080>
+		<font color=#50a0c0>←→↑↓</font> MOVE
+		<font color=#202020>.</font>
+		<font color=#50a0c0>X</font> KEY1
+		<font color=#202020>.</font>
+		<font color=#50a0c0>C</font> KEY2
+	</font><br>
+	<font color=#404040>ⓒSEIMON</FONT>
+	</b>
 
 	</div></center>
 	<br><br>
@@ -342,9 +352,24 @@ canvas{
 		return 2.0/3.0+abs(v);
 	}
 
-	void main()
+	/*void main()
 	{
 		gl_FragColor.rgb = Tri(Warp(v_texCoord.xy))*Mask(v_texCoord.x*texSize.x);
+		//gl_FragColor.rgb = texture2D(u_texture,v_texCoord).rgb; // original
+		gl_FragColor.a = 1.0;
+	}*/
+	float Glass(vec2 pos)
+	{
+		vec2 xy1=pos.xy+vec2(-0.5,-0.4);
+		float b1=0.0;
+		b1=0.7-dot(xy1,xy1);
+		return b1*0.2;
+	}
+
+	void main()
+	{
+		vec2 xy=Warp(v_texCoord.xy);
+		gl_FragColor.rgb = Tri(xy)*Mask(v_texCoord.x*texSize.x)+Glass(xy);
 		//gl_FragColor.rgb = texture2D(u_texture,v_texCoord).rgb; // original
 		gl_FragColor.a = 1.0;
 	}
